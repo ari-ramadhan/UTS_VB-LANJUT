@@ -1,0 +1,9 @@
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\bin\Debug\UTS_VB(DATA_KAMPUS).exe
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\bin\Debug\UTS_VB(DATA_KAMPUS).pdb
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\bin\Debug\UTS_VB(DATA_KAMPUS).xml
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB_DATA_KAMPUS_.Form1.resources
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB_DATA_KAMPUS_.Resources.resources
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB(DATA_KAMPUS).vbproj.GenerateResource.Cache
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB(DATA_KAMPUS).exe
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB(DATA_KAMPUS).xml
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB(DATA_KAMPUS).pdb
