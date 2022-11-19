@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class Form1
+Public Class FormMahasiswa
 
     'TextBox1 = tbKodeBarang
     'TextBox2 = tbNamaBarang
@@ -11,7 +11,7 @@ Public Class Form1
     'Button1 = btBatal
     'Button2 = btHapus
 
-    Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FormMahasiswa_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Call bukaDB()
         Call isiGrid()
         Call isiCombo()
@@ -69,7 +69,7 @@ Public Class Form1
         tbNim.Text = ""
         tbNama.Text = ""
         tbTempatLahir.Text = ""
-        tbTanggalLahir.Text = ""
+        dateLahir.Text = DateAndTime.Now()
         tbAlamat.Text = ""
         tbHp.Text = ""
 
@@ -120,7 +120,7 @@ Public Class Form1
                         .Parameters.Add("p1", MySqlDbType.String, 10).Value = tbNim.Text
                         .Parameters.Add("p2", MySqlDbType.String, 30).Value = tbNama.Text.ToUpper
                         .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbTempatLahir.Text.ToUpper
-                        .Parameters.Add("p4", MySqlDbType.String, 30).Value = tbTanggalLahir.Text
+                        .Parameters.Add("p4", MySqlDbType.String, 30).Value = dateLahir.Text.ToString
                         .Parameters.Add("p5", MySqlDbType.String, 30).Value = tbAlamat.Text
                         .Parameters.Add("p6", MySqlDbType.String, 12).Value = tbHp.Text
                         .ExecuteNonQuery()
@@ -150,7 +150,7 @@ Public Class Form1
             tbNim.Text = RD.Item(0)
             tbNama.Text = RD.Item(1)
             tbTempatLahir.Text = RD.Item(2)
-            tbTanggalLahir.Text = RD.Item(3)
+            dateLahir.Text = RD.Item(3)
             tbAlamat.Text = RD.Item(4)
             tbHp.Text = RD.Item(5)
 
@@ -192,7 +192,7 @@ Public Class Form1
                 .Parameters.Add("p1", MySqlDbType.Int32, 10).Value = tbNim.Text
                 .Parameters.Add("p2", MySqlDbType.String, 30).Value = tbNama.Text
                 .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbTempatLahir.Text
-                .Parameters.Add("p4", MySqlDbType.String, 30).Value = tbTanggalLahir.Text
+                .Parameters.Add("p4", MySqlDbType.String, 30).Value = dateLahir.Text.ToString
                 .Parameters.Add("p5", MySqlDbType.String, 30).Value = tbAlamat.Text
                 .Parameters.Add("p6", MySqlDbType.String, 12).Value = tbHp.Text
                 .ExecuteNonQuery()

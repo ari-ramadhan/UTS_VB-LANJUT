@@ -76,11 +76,17 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.vb">
+    <Compile Include="Coba.Designer.vb">
+      <DependentUpon>Coba.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Coba.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.vb">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <Compile Include="FormMahasiswa.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMahasiswa.Designer.vb">
+      <DependentUpon>FormMahasiswa.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modConnection.vb" />
@@ -101,8 +107,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.vb</DependentUpon>
+    <EmbeddedResource Include="Coba.resx">
+      <DependentUpon>Coba.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMahasiswa.resx">
+      <DependentUpon>FormMahasiswa.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
