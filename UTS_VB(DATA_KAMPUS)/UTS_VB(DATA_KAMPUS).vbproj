@@ -76,10 +76,10 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Coba.Designer.vb">
-      <DependentUpon>Coba.vb</DependentUpon>
+    <Compile Include="FormStaff.Designer.vb">
+      <DependentUpon>FormStaff.vb</DependentUpon>
     </Compile>
-    <Compile Include="Coba.vb">
+    <Compile Include="FormStaff.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormMahasiswa.vb">
@@ -107,8 +107,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Coba.resx">
-      <DependentUpon>Coba.vb</DependentUpon>
+    <EmbeddedResource Include="FormStaff.resx">
+      <DependentUpon>FormStaff.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMahasiswa.resx">
       <DependentUpon>FormMahasiswa.vb</DependentUpon>

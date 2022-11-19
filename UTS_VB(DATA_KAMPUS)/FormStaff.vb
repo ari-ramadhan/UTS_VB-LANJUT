@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class FormMahasiswa
+Public Class FormStaff
 
     'TextBox1 = tbKodeBarang
     'TextBox2 = tbNamaBarang
@@ -11,7 +11,7 @@ Public Class FormMahasiswa
     'Button1 = btBatal
     'Button2 = btHapus
 
-    Private Sub FormMahasiswa_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FormStaff_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Call bukaDB()
         Call isiGrid()
         Call isiCombo()
@@ -26,7 +26,7 @@ Public Class FormMahasiswa
         ''End If    
         With DataGridView1
             With .Columns(0)
-                .HeaderCell.Value = "NIM"
+                .HeaderCell.Value = "NIP"
                 .Width = 70
             End With
             With .Columns(1)
@@ -34,54 +34,50 @@ Public Class FormMahasiswa
                 .Width = 90
             End With
             With .Columns(2)
-                .HeaderCell.Value = "Tempat Lahir"
+                .HeaderCell.Value = "Domisili"
                 .Width = 110
             End With
             With .Columns(3)
-                .HeaderCell.Value = "Tanggal Lahir"
-                .Width = 110
+                .HeaderCell.Value = "Agama"
+                .Width = 70
             End With
 
             With .Columns(4)
-                .HeaderCell.Value = "Alamat"
-                .Width = 190
-            End With
-
-            With .Columns(5)
-                .HeaderCell.Value = "Handphone"
-                .Width = 87
+                .HeaderCell.Value = "JK"
+                .Width = 40
             End With
         End With
     End Sub
 
     Sub isiGrid()
         modConnection.bukaDB()
-        DA = New MySqlDataAdapter("SELECT * from mahasiswa", Conn)
+        DA = New MySqlDataAdapter("SELECT * from staff", Conn)
         DS = New DataSet
-        DA.Fill(DS, "mahasiswa")
-        DataGridView1.DataSource = DS.Tables("mahasiswa")
+        DA.Fill(DS, "staff")
+        DataGridView1.DataSource = DS.Tables("staff")
         DataGridView1.ReadOnly = True
 
     End Sub
 
     Sub Bersih()
 
-        tbNim.Text = ""
+        tbNip.Text = ""
         tbNama.Text = ""
-        tbTempatLahir.Text = ""
-        dateLahir.Text = DateAndTime.Now()
-        tbAlamat.Text = ""
-        tbHp.Text = ""
+        tbDomisili.Text = ""
+        cbAgama.Text = ""
+        rbLaki.Checked = False
+        rbPerempuan.Checked = False
 
-        tbNim.Focus()
+
+        tbNip.Focus()
         ComboBox1.ResetText() 'tambahan
-        tbNim.Enabled = True 'tambahan
+        tbNip.Enabled = True 'tambahan
         btTambah.Text = "Tambah"
     End Sub
 
     Sub isiCombo()
         Call bukaDB()
-        CMD = New MySqlCommand("SELECT nim From mahasiswa", Conn)
+        CMD = New MySqlCommand("SELECT nip From staff", Conn)
         RD = CMD.ExecuteReader
         ComboBox1.Items.Clear()
         Do While RD.Read
@@ -98,31 +94,38 @@ Public Class FormMahasiswa
         Conn.Close()
     End Sub
     Private Sub btTambah_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btTambah.Click
+        Dim hasil As String
+
+        If rbLaki.Checked = True Then
+            hasil = "L"
+        ElseIf rbPerempuan.Checked = True Then
+            hasil = "P"
+        End If
+
         If btTambah.Text = "Tambah" Then
             btTambah.Text = "Simpan"
-            tbNim.Focus()
+            tbNip.Focus()
         Else
             Try
                 Call bukaDB()
-                CMD = New MySqlCommand("SELECT nim from mahasiswa WHERE nim = '" & tbNim.Text & "'", Conn)
+                CMD = New MySqlCommand("SELECT nip from staff WHERE nip = '" & tbNip.Text & "'", Conn)
                 RD = CMD.ExecuteReader
                 RD.Read()
                 If RD.HasRows Then
-                    MsgBox("Maaf, Mahasiswa dengan NIM tersebut telah ada",
+                    MsgBox("Maaf, staff dengan NIP tersebut telah ada",
                     MsgBoxStyle.Exclamation, "Peringatan")
                 Else
                     Call bukaDB()
-                    simpan = "INSERT INTO mahasiswa (nim, nama, tempatLahir, tanggalLahir, alamat, noHp) VALUES (?,?,?,?,?,?)"
+                    simpan = "INSERT INTO staff (nip, nama, domisili, agama, jenisKelamin) VALUES (?,?,?,?,?)"
                     CMD = Conn.CreateCommand
                     With CMD
                         .CommandText = simpan
                         .Connection = Conn
-                        .Parameters.Add("p1", MySqlDbType.String, 10).Value = tbNim.Text
+                        .Parameters.Add("p1", MySqlDbType.String, 10).Value = tbNip.Text
                         .Parameters.Add("p2", MySqlDbType.String, 30).Value = tbNama.Text
-                        .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbTempatLahir.Text
-                        .Parameters.Add("p4", MySqlDbType.String, 30).Value = dateLahir.Text.ToString
-                        .Parameters.Add("p5", MySqlDbType.String, 30).Value = tbAlamat.Text
-                        .Parameters.Add("p6", MySqlDbType.String, 12).Value = tbHp.Text
+                        .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbDomisili.Text
+                        .Parameters.Add("p4", MySqlDbType.String, 30).Value = cbAgama.SelectedItem
+                        .Parameters.Add("p5", MySqlDbType.String, 30).Value = hasil
                         .ExecuteNonQuery()
                     End With
                     Call isiGrid()
@@ -142,19 +145,22 @@ Public Class FormMahasiswa
 
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox1.SelectedIndexChanged
         Call bukaDB()
-        CMD = New MySqlCommand("SELECT nim, nama, tempatLahir, tanggalLahir, alamat, noHp FROM mahasiswa WHERE nim = '" & ComboBox1.Text & "'", Conn)
+        CMD = New MySqlCommand("SELECT nip, nama, domisili, agama, jenisKelamin FROM staff WHERE nip = '" & ComboBox1.Text & "'", Conn)
         RD = CMD.ExecuteReader
         RD.Read()
         If RD.HasRows Then
 
-            tbNim.Text = RD.Item(0)
+            tbNip.Text = RD.Item(0)
             tbNama.Text = RD.Item(1)
-            tbTempatLahir.Text = RD.Item(2)
-            dateLahir.Text = RD.Item(3)
-            tbAlamat.Text = RD.Item(4)
-            tbHp.Text = RD.Item(5)
+            tbDomisili.Text = RD.Item(2)
+            cbAgama.Text = RD.Item(3)
+            If RD.Item(4) = "L" Then
+                rbLaki.Checked = True
+            ElseIf RD.Item(4) = "P" Then
+                rbPerempuan.Checked = True
+            End If
 
-            tbNim.Enabled = False
+            tbNip.Enabled = False
             tbNama.Focus()
         End If
     End Sub
@@ -163,12 +169,12 @@ Public Class FormMahasiswa
 
         Try
             Call bukaDB()
-            hapus = "DELETE FROM mahasiswa WHERE nim=@p1"
+            hapus = "DELETE FROM staff WHERE nip=@p1"
             CMD = Conn.CreateCommand
             With CMD
                 .CommandText = hapus
                 .Connection = Conn
-                .Parameters.Add("p1", MySqlDbType.String, 4).Value = tbNim.Text
+                .Parameters.Add("p1", MySqlDbType.String, 4).Value = tbNip.Text
                 .ExecuteNonQuery()
             End With
             Call Bersih()
@@ -181,20 +187,27 @@ Public Class FormMahasiswa
     End Sub
 
     Private Sub btEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btEdit.Click
+        Dim hasil As String
+
+        If rbLaki.Checked = True Then
+            hasil = "L"
+        ElseIf rbPerempuan.Checked = True Then
+            hasil = "P"
+        End If
+
         Try
             Call bukaDB()
-            ubah = "UPDATE mahasiswa SET nama = @p2, tempatLahir = @p3, tanggalLahir = @p4, alamat = @p5, noHp = @p6 WHERE nim = @p1"
+            ubah = "UPDATE staff SET nama = @p2, domisili = @p3, agama = @p4, jenisKelamin = @p5 WHERE nip = @p1"
             CMD = Conn.CreateCommand
             With CMD
                 .CommandText = ubah
                 .Connection = Conn
 
-                .Parameters.Add("p1", MySqlDbType.Int32, 10).Value = tbNim.Text
+                .Parameters.Add("p1", MySqlDbType.Int32, 12).Value = tbNip.Text
                 .Parameters.Add("p2", MySqlDbType.String, 30).Value = tbNama.Text
-                .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbTempatLahir.Text
-                .Parameters.Add("p4", MySqlDbType.String, 30).Value = dateLahir.Text.ToString
-                .Parameters.Add("p5", MySqlDbType.String, 30).Value = tbAlamat.Text
-                .Parameters.Add("p6", MySqlDbType.String, 12).Value = tbHp.Text
+                .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbDomisili.Text
+                .Parameters.Add("p4", MySqlDbType.String, 30).Value = cbAgama.SelectedItem
+                .Parameters.Add("p5", MySqlDbType.String, 30).Value = hasil
                 .ExecuteNonQuery()
             End With
             Call Bersih()
