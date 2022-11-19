@@ -202,7 +202,9 @@ Public Class FormMahasiswa
             Call isiCombo()
         Catch ex As Exception
             MsgBox(ex.ToString, MsgBoxStyle.Critical, "Terjadi Kesalahan")
-        End Try
+        End Try
+
     End Sub
+
 
 End Class

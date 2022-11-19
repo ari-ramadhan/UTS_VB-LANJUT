@@ -1,6 +1,6 @@
 ﻿Imports MySql.Data.MySqlClient
 
-Public Class FormStaff
+Public Class FormDosen
 
     'TextBox1 = tbKodeBarang
     'TextBox2 = tbNamaBarang
@@ -11,15 +11,14 @@ Public Class FormStaff
     'Button1 = btBatal
     'Button2 = btHapus
 
-    Private Sub FormStaff_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub FormDosen_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Call bukaDB()
         Call isiGrid()
         Call isiCombo()
 
         DataGridView1.RowHeadersVisible = False
         DataGridView1.EnableHeadersVisualStyles = False
-        DataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.OrangeRed
-        DataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White
+        DataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Peru
         ''If tbKodeBarang.Text = String.Empty Then 'tambahan
         ''    btHapus.Enabled = False 'tambahan
         ''Else
@@ -32,15 +31,15 @@ Public Class FormStaff
             End With
             With .Columns(1)
                 .HeaderCell.Value = "Nama"
-                .Width = 90
+                .Width = 140
             End With
             With .Columns(2)
-                .HeaderCell.Value = "Domisili"
-                .Width = 110
+                .HeaderCell.Value = "Agama"
+                .Width = 80
             End With
             With .Columns(3)
-                .HeaderCell.Value = "Agama"
-                .Width = 70
+                .HeaderCell.Value = "Alamat"
+                .Width = 183
             End With
 
             With .Columns(4)
@@ -52,10 +51,10 @@ Public Class FormStaff
 
     Sub isiGrid()
         modConnection.bukaDB()
-        DA = New MySqlDataAdapter("SELECT * from staff", Conn)
+        DA = New MySqlDataAdapter("SELECT * from dosen", Conn)
         DS = New DataSet
-        DA.Fill(DS, "staff")
-        DataGridView1.DataSource = DS.Tables("staff")
+        DA.Fill(DS, "dosen")
+        DataGridView1.DataSource = DS.Tables("dosen")
         DataGridView1.ReadOnly = True
 
     End Sub
@@ -64,7 +63,7 @@ Public Class FormStaff
 
         tbNip.Text = ""
         tbNama.Text = ""
-        tbDomisili.Text = ""
+        tbAlamat.Text = ""
         cbAgama.Text = ""
         rbLaki.Checked = False
         rbPerempuan.Checked = False
@@ -78,7 +77,7 @@ Public Class FormStaff
 
     Sub isiCombo()
         Call bukaDB()
-        CMD = New MySqlCommand("SELECT nip From staff", Conn)
+        CMD = New MySqlCommand("SELECT nip From dosen", Conn)
         RD = CMD.ExecuteReader
         ComboBox1.Items.Clear()
         Do While RD.Read
@@ -109,23 +108,23 @@ Public Class FormStaff
         Else
             Try
                 Call bukaDB()
-                CMD = New MySqlCommand("SELECT nip from staff WHERE nip = '" & tbNip.Text & "'", Conn)
+                CMD = New MySqlCommand("SELECT nip from dosen WHERE nip = '" & tbNip.Text & "'", Conn)
                 RD = CMD.ExecuteReader
                 RD.Read()
                 If RD.HasRows Then
-                    MsgBox("Maaf, staff dengan NIP tersebut telah ada",
+                    MsgBox("Maaf, dosen dengan NIP tersebut telah ada",
                     MsgBoxStyle.Exclamation, "Peringatan")
                 Else
                     Call bukaDB()
-                    simpan = "INSERT INTO staff (nip, nama, domisili, agama, jenisKelamin) VALUES (?,?,?,?,?)"
+                    simpan = "INSERT INTO dosen (nip, nama, agama, alamat, jenisKelamin) VALUES (?,?,?,?,?)"
                     CMD = Conn.CreateCommand
                     With CMD
                         .CommandText = simpan
                         .Connection = Conn
                         .Parameters.Add("p1", MySqlDbType.String, 10).Value = tbNip.Text
                         .Parameters.Add("p2", MySqlDbType.String, 30).Value = tbNama.Text
-                        .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbDomisili.Text
-                        .Parameters.Add("p4", MySqlDbType.String, 30).Value = cbAgama.SelectedItem
+                        .Parameters.Add("p3", MySqlDbType.String, 30).Value = cbAgama.SelectedItem
+                        .Parameters.Add("p4", MySqlDbType.String, 30).Value = tbAlamat.Text
                         .Parameters.Add("p5", MySqlDbType.String, 30).Value = hasil
                         .ExecuteNonQuery()
                     End With
@@ -146,15 +145,15 @@ Public Class FormStaff
 
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox1.SelectedIndexChanged
         Call bukaDB()
-        CMD = New MySqlCommand("SELECT nip, nama, domisili, agama, jenisKelamin FROM staff WHERE nip = '" & ComboBox1.Text & "'", Conn)
+        CMD = New MySqlCommand("SELECT nip, nama, agama, alamat, jenisKelamin FROM dosen WHERE nip = '" & ComboBox1.Text & "'", Conn)
         RD = CMD.ExecuteReader
         RD.Read()
         If RD.HasRows Then
 
             tbNip.Text = RD.Item(0)
             tbNama.Text = RD.Item(1)
-            tbDomisili.Text = RD.Item(2)
-            cbAgama.Text = RD.Item(3)
+            cbAgama.Text = RD.Item(2)
+            tbAlamat.Text = RD.Item(3)
             If RD.Item(4) = "L" Then
                 rbLaki.Checked = True
             ElseIf RD.Item(4) = "P" Then
@@ -170,7 +169,7 @@ Public Class FormStaff
 
         Try
             Call bukaDB()
-            hapus = "DELETE FROM staff WHERE nip=@p1"
+            hapus = "DELETE FROM dosen WHERE nip=@p1"
             CMD = Conn.CreateCommand
             With CMD
                 .CommandText = hapus
@@ -198,7 +197,7 @@ Public Class FormStaff
 
         Try
             Call bukaDB()
-            ubah = "UPDATE staff SET nama = @p2, domisili = @p3, agama = @p4, jenisKelamin = @p5 WHERE nip = @p1"
+            ubah = "UPDATE dosen SET nama = @p2, agama = @p3, alamat = @p4,  jenisKelamin = @p5 WHERE nip = @p1"
             CMD = Conn.CreateCommand
             With CMD
                 .CommandText = ubah
@@ -206,8 +205,8 @@ Public Class FormStaff
 
                 .Parameters.Add("p1", MySqlDbType.Int32, 12).Value = tbNip.Text
                 .Parameters.Add("p2", MySqlDbType.String, 30).Value = tbNama.Text
-                .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbDomisili.Text
                 .Parameters.Add("p4", MySqlDbType.String, 30).Value = cbAgama.SelectedItem
+                .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbAlamat.Text
                 .Parameters.Add("p5", MySqlDbType.String, 30).Value = hasil
                 .ExecuteNonQuery()
             End With
@@ -219,7 +218,4 @@ Public Class FormStaff
         End Try
     End Sub
 
-    Private Sub Panel1_Paint(ByVal sender As System.Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles Panel1.Paint
-
-    End Sub
 End Class

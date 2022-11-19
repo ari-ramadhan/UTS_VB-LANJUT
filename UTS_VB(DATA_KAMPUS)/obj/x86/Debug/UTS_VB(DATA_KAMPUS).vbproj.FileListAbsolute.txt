@@ -8,3 +8,4 @@ c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(
 c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB(DATA_KAMPUS).pdb
 c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB_DATA_KAMPUS_.FormMahasiswa.resources
 c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB_DATA_KAMPUS_.FormStaff.resources
+c:\users\aripc\documents\visual studio 2010\Projects\UTS_VB(DATA_KAMPUS)\UTS_VB(DATA_KAMPUS)\obj\x86\Debug\UTS_VB_DATA_KAMPUS_.FormDosen.resources

@@ -46,6 +46,7 @@ Partial Class FormMahasiswa
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox3 = New System.Windows.Forms.PictureBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -83,6 +84,7 @@ Partial Class FormMahasiswa
         'Label4
         '
         Me.Label4.AutoSize = True
+        Me.Label4.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label4.Location = New System.Drawing.Point(46, 304)
         Me.Label4.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label4.Name = "Label4"
@@ -93,6 +95,7 @@ Partial Class FormMahasiswa
         'Label3
         '
         Me.Label3.AutoSize = True
+        Me.Label3.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label3.Location = New System.Drawing.Point(46, 256)
         Me.Label3.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label3.Name = "Label3"
@@ -111,6 +114,7 @@ Partial Class FormMahasiswa
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Label2.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label2.Location = New System.Drawing.Point(45, 208)
         Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label2.Name = "Label2"
@@ -129,6 +133,7 @@ Partial Class FormMahasiswa
         'Label1
         '
         Me.Label1.AutoSize = True
+        Me.Label1.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label1.Location = New System.Drawing.Point(45, 162)
         Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
@@ -146,6 +151,7 @@ Partial Class FormMahasiswa
         '
         'DataGridView1
         '
+        Me.DataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.Location = New System.Drawing.Point(330, 206)
         Me.DataGridView1.Margin = New System.Windows.Forms.Padding(2)
@@ -185,6 +191,7 @@ Partial Class FormMahasiswa
         'Label5
         '
         Me.Label5.AutoSize = True
+        Me.Label5.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label5.Location = New System.Drawing.Point(45, 353)
         Me.Label5.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label5.Name = "Label5"
@@ -203,6 +210,7 @@ Partial Class FormMahasiswa
         'Label6
         '
         Me.Label6.AutoSize = True
+        Me.Label6.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label6.Location = New System.Drawing.Point(45, 403)
         Me.Label6.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label6.Name = "Label6"
@@ -213,6 +221,7 @@ Partial Class FormMahasiswa
         'Label7
         '
         Me.Label7.AutoSize = True
+        Me.Label7.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label7.Location = New System.Drawing.Point(327, 162)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(82, 13)
@@ -231,6 +240,7 @@ Partial Class FormMahasiswa
         'Label9
         '
         Me.Label9.AutoSize = True
+        Me.Label9.BackColor = System.Drawing.Color.LightSkyBlue
         Me.Label9.Location = New System.Drawing.Point(43, 110)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(961, 13)
@@ -240,6 +250,7 @@ Partial Class FormMahasiswa
         '
         'PictureBox1
         '
+        Me.PictureBox1.BackColor = System.Drawing.Color.LightSkyBlue
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(29, 25)
         Me.PictureBox1.Name = "PictureBox1"
@@ -250,6 +261,7 @@ Partial Class FormMahasiswa
         '
         'PictureBox2
         '
+        Me.PictureBox2.BackColor = System.Drawing.Color.LightSkyBlue
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
         Me.PictureBox2.Location = New System.Drawing.Point(133, 12)
         Me.PictureBox2.Name = "PictureBox2"
@@ -260,6 +272,7 @@ Partial Class FormMahasiswa
         '
         'PictureBox3
         '
+        Me.PictureBox3.BackColor = System.Drawing.Color.LightSkyBlue
         Me.PictureBox3.Image = CType(resources.GetObject("PictureBox3.Image"), System.Drawing.Image)
         Me.PictureBox3.Location = New System.Drawing.Point(197, 49)
         Me.PictureBox3.Name = "PictureBox3"
@@ -267,6 +280,14 @@ Partial Class FormMahasiswa
         Me.PictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox3.TabIndex = 40
         Me.PictureBox3.TabStop = False
+        '
+        'Panel1
+        '
+        Me.Panel1.BackColor = System.Drawing.Color.LightSkyBlue
+        Me.Panel1.Location = New System.Drawing.Point(-8, -3)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(1049, 478)
+        Me.Panel1.TabIndex = 41
         '
         'FormMahasiswa
         '
@@ -296,8 +317,10 @@ Partial Class FormMahasiswa
         Me.Controls.Add(Me.btTambah)
         Me.Controls.Add(Me.btEdit)
         Me.Controls.Add(Me.PictureBox2)
+        Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Name = "FormMahasiswa"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Data Mahasiswa"
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -330,5 +353,6 @@ Partial Class FormMahasiswa
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox3 As System.Windows.Forms.PictureBox
+    Friend WithEvents Panel1 As System.Windows.Forms.Panel
 
 End Class
