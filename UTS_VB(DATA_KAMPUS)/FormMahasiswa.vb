@@ -49,7 +49,7 @@ Public Class FormMahasiswa
 
             With .Columns(5)
                 .HeaderCell.Value = "Handphone"
-                .Width = 87
+                .Width = 86
             End With
         End With
     End Sub

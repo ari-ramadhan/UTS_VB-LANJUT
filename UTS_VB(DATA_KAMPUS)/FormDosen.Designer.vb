@@ -151,7 +151,7 @@ Partial Class FormDosen
         'btBatal
         '
         Me.btBatal.BackColor = System.Drawing.SystemColors.Control
-        Me.btBatal.Location = New System.Drawing.Point(251, 399)
+        Me.btBatal.Location = New System.Drawing.Point(258, 398)
         Me.btBatal.Margin = New System.Windows.Forms.Padding(2)
         Me.btBatal.Name = "btBatal"
         Me.btBatal.Size = New System.Drawing.Size(50, 23)
@@ -250,7 +250,7 @@ Partial Class FormDosen
         'btTambah
         '
         Me.btTambah.BackColor = System.Drawing.SystemColors.Control
-        Me.btTambah.Location = New System.Drawing.Point(156, 399)
+        Me.btTambah.Location = New System.Drawing.Point(163, 398)
         Me.btTambah.Margin = New System.Windows.Forms.Padding(2)
         Me.btTambah.Name = "btTambah"
         Me.btTambah.Size = New System.Drawing.Size(62, 23)
@@ -288,6 +288,8 @@ Partial Class FormDosen
         Me.Panel1.Controls.Add(Me.Label1)
         Me.Panel1.Controls.Add(Me.tbNip)
         Me.Panel1.Controls.Add(Me.PictureBox2)
+        Me.Panel1.Controls.Add(Me.btTambah)
+        Me.Panel1.Controls.Add(Me.btBatal)
         Me.Panel1.Location = New System.Drawing.Point(0, 1)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(902, 476)
@@ -306,13 +308,11 @@ Partial Class FormDosen
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.ComboBox1)
         Me.Controls.Add(Me.btHapus)
-        Me.Controls.Add(Me.btBatal)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.tbAlamat)
         Me.Controls.Add(Me.DataGridView1)
-        Me.Controls.Add(Me.btTambah)
         Me.Controls.Add(Me.btEdit)
         Me.Controls.Add(Me.Panel1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D
