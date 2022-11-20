@@ -2,11 +2,14 @@
 
 Public Class FormLogin
 
+    'Fungsi untuk menonaktifkan akses pada FormMenu, akan digunakan saat memblok user yang belum login
     Public Sub tutupAkses()
         FormMenu.Enabled = False
         FormMenu.DataMasterToolStripMenuItem.Visible = False
     End Sub
 
+    'Fungsi untuk mengaktifkan akses pada form menu, akan dipanggil untuk membolehkan user yang sudah login
+    'untuk mengakses FormMenu
     Public Sub bukaAkses()
         FormMenu.Enabled = True
         FormMenu.DataMasterToolStripMenuItem.Visible = True
@@ -20,9 +23,10 @@ Public Class FormLogin
 
     End Sub
 
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+    Private Sub btnLogin_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLogin.Click
         Dim myAdapter As New MySqlDataAdapter
 
+        'Query Pengecekan ketersediaan user
         Dim sqlQuery = "SELECT * FROM user WHERE username = '" + TextBox1.Text + "' AND password = '" + TextBox2.Text + "'"
 
         Dim myCommand As New MySqlCommand
@@ -33,6 +37,8 @@ Public Class FormLogin
         Dim myData As MySqlDataReader
         myData = myCommand.ExecuteReader()
 
+        'Pengkondisian untuk menge-cek apakah user & password tersedia didatabase / tidak. Lalu memperbolehkan
+        'akses kepada FormMenu jika user berhasil login
         If myData.HasRows = 0 Then
             MsgBox("Username dan Password salah!", MsgBoxStyle.Exclamation, "Error Login")
             bukaDB()
@@ -45,7 +51,8 @@ Public Class FormLogin
         End If
     End Sub
 
-    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button2.Click
+    Private Sub btnBatal_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnBatal.Click
+        'Tutup form login saat tombol Batal diklik
         Me.Close()
     End Sub
 End Class

@@ -2,29 +2,19 @@
 
 Public Class FormStaff
 
-    'TextBox1 = tbKodeBarang
-    'TextBox2 = tbNamaBarang
-    'TextBox3 = tbHargaBarang
-    'TextBox4 = tbStok
-    'Button4 = btTambah
-    'Button3 = btEdit
-    'Button1 = btBatal
-    'Button2 = btHapus
-
     Private Sub FormStaff_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        'melakukan koneksi, mengisi data ke grid dan comboBox dari database
         Call bukaDB()
         Call isiGrid()
         Call isiCombo()
 
+        'Setting Style dari DataGridView
         DataGridView1.RowHeadersVisible = False
         DataGridView1.EnableHeadersVisualStyles = False
         DataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.OrangeRed
         DataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White
-        ''If tbKodeBarang.Text = String.Empty Then 'tambahan
-        ''    btHapus.Enabled = False 'tambahan
-        ''Else
-        ''    btHapus.Enabled = True 'tambahan
-        ''End If    
+
+        'Setting Header dari DataGridView (Nama tiap-tiap Header, Ukuran Panjang tiap-tiap Header)
         With DataGridView1
             With .Columns(0)
                 .HeaderCell.Value = "NIP"
@@ -51,6 +41,7 @@ Public Class FormStaff
     End Sub
 
     Sub isiGrid()
+        'Mempopulasi Grid dengan Data Staf yang ada pada database
         modConnection.bukaDB()
         DA = New MySqlDataAdapter("SELECT * from staff", Conn)
         DS = New DataSet
@@ -61,7 +52,7 @@ Public Class FormStaff
     End Sub
 
     Sub Bersih()
-
+        'Fungsi untuk mengosongkan semua textBox dan radioButton
         tbNip.Text = ""
         tbNama.Text = ""
         tbDomisili.Text = ""
@@ -69,34 +60,30 @@ Public Class FormStaff
         rbLaki.Checked = False
         rbPerempuan.Checked = False
 
-
         tbNip.Focus()
-        ComboBox1.ResetText() 'tambahan
-        tbNip.Enabled = True 'tambahan
+        ComboBox1.ResetText()
+        'Mengembalikan textbox Nim untuk bisa diakses lagi
+        tbNip.Enabled = True
         btTambah.Text = "Tambah"
     End Sub
 
     Sub isiCombo()
+        'Mengisi ComboBox sebanyak data yang ada pada Tabel Staf dengan atribut Nip yang ditampilkan
         Call bukaDB()
         CMD = New MySqlCommand("SELECT nip From staff", Conn)
         RD = CMD.ExecuteReader
         ComboBox1.Items.Clear()
         Do While RD.Read
-            'Dim nb As String 'tambahan
-
-            'nb = "(" & RD.Item(0) & ") " & RD.Item(1) 'tambahan
-
-            'ComboBox1.Items.Add(nb) 'tambahan
             ComboBox1.Items.Add(RD.Item(0))
-
         Loop
         CMD.Dispose()
         RD.Close()
         Conn.Close()
     End Sub
     Private Sub btTambah_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btTambah.Click
+        'Menentukan Data Jenis Kelamin mana yang diinput tergantung dari RadioButton mana yang dipilih
+        'Apakah Laki - Laki = L, atau Perempuan = P
         Dim hasil As String
-
         If rbLaki.Checked = True Then
             hasil = "L"
         ElseIf rbPerempuan.Checked = True Then
@@ -107,8 +94,11 @@ Public Class FormStaff
             btTambah.Text = "Simpan"
             tbNip.Focus()
         Else
+            'Pengkondisian untuk menge-cek apakah nip staf tersedia di database / tidak. Lalu memperbolehkan
+            'user untuk melakukan insert jika Nip tidak tersedia
             Try
                 Call bukaDB()
+                'Query Pengecekan ketersediaan Staf dengan patokan Nip
                 CMD = New MySqlCommand("SELECT nip from staff WHERE nip = '" & tbNip.Text & "'", Conn)
                 RD = CMD.ExecuteReader
                 RD.Read()
@@ -117,6 +107,7 @@ Public Class FormStaff
                     MsgBoxStyle.Exclamation, "Peringatan")
                 Else
                     Call bukaDB()
+                    'Query Insert pada tabel Staf
                     simpan = "INSERT INTO staff (nip, nama, domisili, agama, jenisKelamin) VALUES (?,?,?,?,?)"
                     CMD = Conn.CreateCommand
                     With CMD
@@ -145,6 +136,9 @@ Public Class FormStaff
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox1.SelectedIndexChanged
+
+        'Mengisi tiap tiap textBox dengan data staf yang dipilih Nip nya dari comboBox.
+        'Diperlukan untuk melakukan Hapus / Ubah data
         Call bukaDB()
         CMD = New MySqlCommand("SELECT nip, nama, domisili, agama, jenisKelamin FROM staff WHERE nip = '" & ComboBox1.Text & "'", Conn)
         RD = CMD.ExecuteReader
@@ -155,12 +149,15 @@ Public Class FormStaff
             tbNama.Text = RD.Item(1)
             tbDomisili.Text = RD.Item(2)
             cbAgama.Text = RD.Item(3)
+
+            'Menentukan radioButton Jenis Kelamin yang akan terpilih secara otomatis dari data dosen yang dipilih dari ComboBox
             If RD.Item(4) = "L" Then
                 rbLaki.Checked = True
             ElseIf RD.Item(4) = "P" Then
                 rbPerempuan.Checked = True
             End If
 
+            'Mematikan textBox Nip saat sebuah data dipilih dari comboBox agar fungsi Hapus & Ubah lebih optimal
             tbNip.Enabled = False
             tbNama.Focus()
         End If
@@ -168,6 +165,9 @@ Public Class FormStaff
 
     Private Sub btHapus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btHapus.Click
 
+        'Melakukan hapus data saat tombol Hapus ditekan.
+        'Sebelumnya harus melakukan pemilihan data dari comboBox yang nantinya akan mengisi textBox Nip
+        'yang menjadi patokan penghapusan Data
         Try
             Call bukaDB()
             hapus = "DELETE FROM staff WHERE nip=@p1"
@@ -188,8 +188,10 @@ Public Class FormStaff
     End Sub
 
     Private Sub btEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btEdit.Click
-        Dim hasil As String
 
+        'Menentukan Data Jenis Kelamin mana yang akan diupdate tergantung dari RadioButton mana yang dipilih
+        'Apakah Laki - Laki = L, atau Perempuan = P
+        Dim hasil As String
         If rbLaki.Checked = True Then
             hasil = "L"
         ElseIf rbPerempuan.Checked = True Then
@@ -208,7 +210,7 @@ Public Class FormStaff
                 .Parameters.Add("p2", MySqlDbType.String, 30).Value = tbNama.Text
                 .Parameters.Add("p3", MySqlDbType.String, 30).Value = tbDomisili.Text
                 .Parameters.Add("p4", MySqlDbType.String, 30).Value = cbAgama.SelectedItem
-                .Parameters.Add("p5", MySqlDbType.String, 30).Value = hasil
+                .Parameters.Add("p5", MySqlDbType.String, 30).Value = hasil 'Nilai hasil diambil dari radioButton jenis kelamin mana yang user pilih
                 .ExecuteNonQuery()
             End With
             Call Bersih()
@@ -216,6 +218,7 @@ Public Class FormStaff
             Call isiCombo()
         Catch ex As Exception
             MsgBox(ex.ToString, MsgBoxStyle.Critical, "Terjadi Kesalahan")
-        End Try
+        End Try
+
     End Sub
 End Class

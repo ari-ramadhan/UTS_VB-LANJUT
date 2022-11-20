@@ -12,10 +12,12 @@ Public Class FormMahasiswa
     'Button2 = btHapus
 
     Private Sub FormMahasiswa_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        'melakukan koneksi, mengisi data ke grid dan comboBox dari database
         Call bukaDB()
         Call isiGrid()
         Call isiCombo()
 
+        'Setting Style dari DataGridView
         DataGridView1.RowHeadersVisible = False
         DataGridView1.EnableHeadersVisualStyles = False
         DataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.Azure
@@ -23,7 +25,8 @@ Public Class FormMahasiswa
         ''    btHapus.Enabled = False 'tambahan
         ''Else
         ''    btHapus.Enabled = True 'tambahan
-        ''End If    
+        ''End If        
+        'Setting Header dari DataGridView (Nama tiap-tiap Header, Ukuran Panjang tiap-tiap Header)
         With DataGridView1
             With .Columns(0)
                 .HeaderCell.Value = "NIM"
@@ -41,12 +44,10 @@ Public Class FormMahasiswa
                 .HeaderCell.Value = "Tanggal Lahir"
                 .Width = 110
             End With
-
             With .Columns(4)
                 .HeaderCell.Value = "Alamat"
                 .Width = 190
             End With
-
             With .Columns(5)
                 .HeaderCell.Value = "Handphone"
                 .Width = 86
@@ -55,17 +56,17 @@ Public Class FormMahasiswa
     End Sub
 
     Sub isiGrid()
+        'Mempopulasi Grid dengan Data Mahasiswa yang ada pada database
         modConnection.bukaDB()
         DA = New MySqlDataAdapter("SELECT * from mahasiswa", Conn)
         DS = New DataSet
         DA.Fill(DS, "mahasiswa")
         DataGridView1.DataSource = DS.Tables("mahasiswa")
         DataGridView1.ReadOnly = True
-
     End Sub
 
     Sub Bersih()
-
+        'Fungsi untuk mengosongkan semua textBox dan men-set DateTimePicker kepada tanggal saat ini 
         tbNim.Text = ""
         tbNama.Text = ""
         tbTempatLahir.Text = ""
@@ -74,24 +75,20 @@ Public Class FormMahasiswa
         tbHp.Text = ""
 
         tbNim.Focus()
-        ComboBox1.ResetText() 'tambahan
-        tbNim.Enabled = True 'tambahan
+        ComboBox1.ResetText()
+        'Mengembalikan textbox Nim untuk bisa diakses lagi
+        tbNim.Enabled = True
         btTambah.Text = "Tambah"
     End Sub
 
     Sub isiCombo()
+        'Mengisi ComboBox sebanyak data yang ada pada Tabel mahasiswa dengan atribut Nim yang ditampilkan
         Call bukaDB()
         CMD = New MySqlCommand("SELECT nim From mahasiswa", Conn)
         RD = CMD.ExecuteReader
         ComboBox1.Items.Clear()
         Do While RD.Read
-            'Dim nb As String 'tambahan
-
-            'nb = "(" & RD.Item(0) & ") " & RD.Item(1) 'tambahan
-
-            'ComboBox1.Items.Add(nb) 'tambahan
             ComboBox1.Items.Add(RD.Item(0))
-
         Loop
         CMD.Dispose()
         RD.Close()
@@ -102,8 +99,11 @@ Public Class FormMahasiswa
             btTambah.Text = "Simpan"
             tbNim.Focus()
         Else
+            'Pengkondisian untuk menge-cek apakah nim mahasiswa tersedia di database / tidak. Lalu memperbolehkan
+            'user untuk melakukan insert jika Nim tidak tersedia
             Try
                 Call bukaDB()
+                'Query Pengecekan ketersediaan Mahasiswa dengan patokan Nim
                 CMD = New MySqlCommand("SELECT nim from mahasiswa WHERE nim = '" & tbNim.Text & "'", Conn)
                 RD = CMD.ExecuteReader
                 RD.Read()
@@ -112,6 +112,7 @@ Public Class FormMahasiswa
                     MsgBoxStyle.Exclamation, "Peringatan")
                 Else
                     Call bukaDB()
+                    'Query Insert pada tabel Mahasiswa
                     simpan = "INSERT INTO mahasiswa (nim, nama, tempatLahir, tanggalLahir, alamat, noHp) VALUES (?,?,?,?,?,?)"
                     CMD = Conn.CreateCommand
                     With CMD
@@ -141,6 +142,9 @@ Public Class FormMahasiswa
     End Sub
 
     Private Sub ComboBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ComboBox1.SelectedIndexChanged
+
+        'Mengisi tiap tiap textBox dengan data mahasiswa yang dipilih Nim nya dari comboBox.
+        'Diperlukan untuk melakukan Hapus / Ubah data
         Call bukaDB()
         CMD = New MySqlCommand("SELECT nim, nama, tempatLahir, tanggalLahir, alamat, noHp FROM mahasiswa WHERE nim = '" & ComboBox1.Text & "'", Conn)
         RD = CMD.ExecuteReader
@@ -154,6 +158,7 @@ Public Class FormMahasiswa
             tbAlamat.Text = RD.Item(4)
             tbHp.Text = RD.Item(5)
 
+            'Mematikan textBox Nim saat sebuah data dipilih dari comboBox agar fungsi Hapus & Ubah lebih optimal
             tbNim.Enabled = False
             tbNama.Focus()
         End If
@@ -161,6 +166,9 @@ Public Class FormMahasiswa
 
     Private Sub btHapus_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btHapus.Click
 
+        'Melakukan hapus data saat tombol Hapus ditekan.
+        'Sebelumnya harus melakukan pemilihan data dari comboBox yang nantinya akan mengisi textBox Nim
+        'yang menjadi patokan penghapusan Data
         Try
             Call bukaDB()
             hapus = "DELETE FROM mahasiswa WHERE nim=@p1"
@@ -181,6 +189,11 @@ Public Class FormMahasiswa
     End Sub
 
     Private Sub btEdit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btEdit.Click
+
+        'Melakukan ubah data saat tombol Ubah ditekan.
+        'Sebelumnya harus melakukan pemilihan data dari comboBox yang nantinya akan mengisi semua
+        'textbox dan DateTimePicker sesuai data yang dipilih.
+        'yang menjadi patokan pengubahan Data
         Try
             Call bukaDB()
             ubah = "UPDATE mahasiswa SET nama = @p2, tempatLahir = @p3, tanggalLahir = @p4, alamat = @p5, noHp = @p6 WHERE nim = @p1"
@@ -205,6 +218,5 @@ Public Class FormMahasiswa
         End Try
 
     End Sub
-
 
 End Class

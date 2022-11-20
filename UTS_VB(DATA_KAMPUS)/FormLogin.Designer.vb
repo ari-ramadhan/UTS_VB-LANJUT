@@ -23,10 +23,10 @@ Partial Class FormLogin
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FormLogin))
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.btnLogin = New System.Windows.Forms.Button()
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.Button2 = New System.Windows.Forms.Button()
+        Me.btnBatal = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -38,14 +38,15 @@ Partial Class FormLogin
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'Button1
+        'btnLogin
         '
-        Me.Button1.Location = New System.Drawing.Point(106, 212)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(47, 23)
-        Me.Button1.TabIndex = 9
-        Me.Button1.Text = "Login"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.btnLogin.BackColor = System.Drawing.Color.BurlyWood
+        Me.btnLogin.Location = New System.Drawing.Point(106, 212)
+        Me.btnLogin.Name = "btnLogin"
+        Me.btnLogin.Size = New System.Drawing.Size(47, 23)
+        Me.btnLogin.TabIndex = 9
+        Me.btnLogin.Text = "Login"
+        Me.btnLogin.UseVisualStyleBackColor = False
         '
         'TextBox2
         '
@@ -65,18 +66,19 @@ Partial Class FormLogin
         Me.TextBox1.TabIndex = 7
         Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'Button2
+        'btnBatal
         '
-        Me.Button2.Location = New System.Drawing.Point(186, 212)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(47, 23)
-        Me.Button2.TabIndex = 10
-        Me.Button2.Text = "Batal"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.btnBatal.BackColor = System.Drawing.Color.BurlyWood
+        Me.btnBatal.Location = New System.Drawing.Point(186, 212)
+        Me.btnBatal.Name = "btnBatal"
+        Me.btnBatal.Size = New System.Drawing.Size(47, 23)
+        Me.btnBatal.TabIndex = 10
+        Me.btnBatal.Text = "Batal"
+        Me.btnBatal.UseVisualStyleBackColor = False
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.Maroon
+        Me.PictureBox1.BackColor = System.Drawing.Color.PapayaWhip
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
         Me.PictureBox1.Location = New System.Drawing.Point(55, 87)
         Me.PictureBox1.Name = "PictureBox1"
@@ -87,7 +89,7 @@ Partial Class FormLogin
         '
         'PictureBox2
         '
-        Me.PictureBox2.BackColor = System.Drawing.Color.Maroon
+        Me.PictureBox2.BackColor = System.Drawing.Color.PapayaWhip
         Me.PictureBox2.Image = CType(resources.GetObject("PictureBox2.Image"), System.Drawing.Image)
         Me.PictureBox2.Location = New System.Drawing.Point(55, 142)
         Me.PictureBox2.Name = "PictureBox2"
@@ -99,8 +101,8 @@ Partial Class FormLogin
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Maroon
-        Me.Label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label1.BackColor = System.Drawing.Color.BlanchedAlmond
+        Me.Label1.ForeColor = System.Drawing.Color.Black
         Me.Label1.Location = New System.Drawing.Point(102, 87)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(55, 13)
@@ -110,8 +112,8 @@ Partial Class FormLogin
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Maroon
-        Me.Label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.Label2.BackColor = System.Drawing.Color.BlanchedAlmond
+        Me.Label2.ForeColor = System.Drawing.Color.Black
         Me.Label2.Location = New System.Drawing.Point(103, 142)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(53, 13)
@@ -124,7 +126,7 @@ Partial Class FormLogin
         Me.Label3.BackColor = System.Drawing.Color.Transparent
         Me.Label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.Label3.Font = New System.Drawing.Font("Microsoft Tai Le", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.ForeColor = System.Drawing.SystemColors.Control
+        Me.Label3.ForeColor = System.Drawing.Color.Black
         Me.Label3.Location = New System.Drawing.Point(126, 29)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(80, 29)
@@ -133,7 +135,7 @@ Partial Class FormLogin
         '
         'Panel1
         '
-        Me.Panel1.BackColor = System.Drawing.Color.Maroon
+        Me.Panel1.BackColor = System.Drawing.Color.BlanchedAlmond
         Me.Panel1.Controls.Add(Me.Label3)
         Me.Panel1.Location = New System.Drawing.Point(-7, -7)
         Me.Panel1.Name = "Panel1"
@@ -149,8 +151,8 @@ Partial Class FormLogin
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Controls.Add(Me.Button2)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.btnBatal)
+        Me.Controls.Add(Me.btnLogin)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.Panel1)
@@ -166,10 +168,10 @@ Partial Class FormLogin
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btnLogin As System.Windows.Forms.Button
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents Button2 As System.Windows.Forms.Button
+    Friend WithEvents btnBatal As System.Windows.Forms.Button
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents PictureBox2 As System.Windows.Forms.PictureBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
